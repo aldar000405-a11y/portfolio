@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "dashboard",
+			"path": ".."
+		},
+		{
+			"name": "project1",
+			"path": "../../../../../../../../project1"
+		}
+	],
+	"settings": {}
+}
