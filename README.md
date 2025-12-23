@@ -2,7 +2,7 @@
 
 A high-performance, responsive frontend portfolio built with Next.js 16, TypeScript, Tailwind CSS, and Framer Motion.
 
-## 🚀 Features
+##  Features
 
 - **Next.js 16 App Router**: Leveraging Server Components and the new routing paradigm.
 - **Frontend Architecture**: Clean separation of concerns with a centralized data layer and reusable components.
@@ -14,7 +14,7 @@ A high-performance, responsive frontend portfolio built with Next.js 16, TypeScr
 - **Framer Motion**: Subtle animations for enhanced user experience (with reduced motion support).
 - **SEO Ready**: configured metadata, OpenGraph tags, and semantic HTML.
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 - **Framework**: [Next.js 16](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
@@ -23,7 +23,7 @@ A high-performance, responsive frontend portfolio built with Next.js 16, TypeScr
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Theme**: [next-themes](https://github.com/pacocoursey/next-themes)
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 /app              # App Router pages and layouts
@@ -39,36 +39,4 @@ A high-performance, responsive frontend portfolio built with Next.js 16, TypeScr
 /styles           # Global styles
 ```
 
-## 🏃‍♂️ Speed Start
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/yourusername/portfolio.git
-    cd portfolio
-    ```
-
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-
-3.  **Run the development server:**
-    ```bash
-    npm run dev
-    ```
-
-4.  **Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.**
-
-## 🚢 Building for Production
-
-To create a production build:
-
-```bash
-npm run build
-npm start
-```
-
-## 📄 License
-
-This project is licensed under the MIT License.
-"# portfolio" 
