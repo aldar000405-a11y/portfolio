@@ -15,7 +15,7 @@ A **production-ready**, high-performance portfolio website built with **Next.js 
 - **♿ Accessible** - WCAG 2.1 compliant components
 - **🌐 Vercel Ready** - Zero-config deployment to Vercel
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 | Technology | Purpose |
 |-----------|---------|
@@ -29,7 +29,7 @@ A **production-ready**, high-performance portfolio website built with **Next.js 
 | **Recharts** | Data visualization |
 | **Resend** | Email delivery API |
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 ├── app/                          # Next.js 16 App Router
@@ -58,6 +58,7 @@ A **production-ready**, high-performance portfolio website built with **Next.js 
 └── .env.example                  # Environment variables template
 ```
 
+<<<<<<< HEAD
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -292,3 +293,6 @@ For issues or questions:
 
 Last updated: December 2025 | Next.js 16 | React 19
 "# my-portfolio" 
+=======
+
+>>>>>>> 7eb08b2301e800b5aa44c5a22edebb553dee8c93
