@@ -1,11 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { inter, outfit } from "@/app/fonts";
+import { Inter, Outfit } from "next/font/google";
 import { siteConfig } from "@/config/site.config";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { cn } from "@/utils/cn";
 import "./globals.css";
+
+// Font configuration
+const inter = Inter({ subsets: ["latin"], display: "swap" });
+const outfit = Outfit({ subsets: ["latin"], display: "swap" });
 
 
 
