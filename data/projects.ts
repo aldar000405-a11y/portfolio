@@ -19,6 +19,7 @@ export const projects: Project[] = [
         tech: ["HTML", "CSS", "JavaScript", "CSS Framework"],
         github: "https://github.com/aldar000405-a11y/project-4",
         demo: "https://aldar000405-a11y.github.io/project-4/",
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
         featured: true,
     },
     {
@@ -29,6 +30,7 @@ export const projects: Project[] = [
         tech: ["HTML", "CSS", "JavaScript"],
         github: "https://github.com/aldar000405-a11y/project-3",
         demo: "https://aldar000405-a11y.github.io/project-3/",
+        image: "https://images.unsplash.com/photo-1460925895917-aae19106c31f?w=800&q=80",
         featured: true,
     },
     {
@@ -39,6 +41,7 @@ export const projects: Project[] = [
         tech: ["HTML", "CSS", "JavaScript"],
         github: "https://github.com/aldar000405-a11y/project-2",
         demo: "https://aldar000405-a11y.github.io/project-2/",
+        image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
         featured: false,
     },
 ];

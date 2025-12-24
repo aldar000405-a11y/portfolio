@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { MotionDiv } from "@/components/motion/motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,7 +10,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Github, Mail, Send, CheckCircle } from "lucide-react";
 import { siteConfig } from "@/config/site.config";
 import Link from "next/link";
-import emailjs from "@emailjs/browser";
 
 export default function ContactPage() {
     const [isLoading, setIsLoading] = useState(false);
@@ -18,35 +17,12 @@ export default function ContactPage() {
     const [error, setError] = useState("");
     const formRef = useRef<HTMLFormElement>(null);
 
-    useEffect(() => {
-        // Initialize EmailJS with public key
-        const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
-        if (!publicKey) {
-            console.warn("EmailJS Public Key not found in environment variables");
-        }
-        emailjs.init(publicKey);
-    }, []);
-
     async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setIsLoading(true);
         setError("");
 
         try {
-            // Validate environment variables
-            const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-            const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-            const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-            if (!serviceId || !templateId || !publicKey) {
-                throw new Error(
-                    "Missing EmailJS configuration. Please check your .env.local file. " +
-                    `Service ID: ${serviceId ? "✓" : "✗"}, ` +
-                    `Template ID: ${templateId ? "✓" : "✗"}, ` +
-                    `Public Key: ${publicKey ? "✓" : "✗"}`
-                );
-            }
-
             const formData = new FormData(event.currentTarget);
             const name = formData.get("name") as string;
             const emailAddress = formData.get("email") as string;
@@ -58,44 +34,32 @@ export default function ContactPage() {
                 throw new Error("Please fill in all fields");
             }
 
-            console.log("Sending email with EmailJS...");
-
-            // Send email using EmailJS
-            const response = await emailjs.send(
-                serviceId,
-                templateId,
-                {
-                    title: "New Contact Message",
-                    name: name,
-                    from_email: emailAddress,
-                    subject: subject,
-                    message: message,
+            // Send email using server-side API (Resend)
+            const response = await fetch("/api/contact", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name,
                     email: emailAddress,
-                }
-            );
+                    subject,
+                    message,
+                }),
+            });
 
-            console.log("Email sent successfully:", response);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Failed to send message");
+            }
+
             setIsSuccess(true);
             if (formRef.current) {
                 formRef.current.reset();
             }
-        } catch (err: any) {
-            const errorMessage = err?.message || "Failed to send message";
-            
-            // Check if it's a quota limit error
-            let displayError = errorMessage;
-            if (errorMessage.includes("quota") || errorMessage.includes("limit") || errorMessage.includes("429")) {
-                displayError = "Our email service has reached its daily limit. Please contact us via WhatsApp: +971 52 202 6061. We'll respond to your message right away!";
-            } else {
-                displayError = `${errorMessage}. If the issue persists, please message us on WhatsApp: +971 52 202 6061`;
-            }
-            
-            setError(displayError);
-            console.error("Contact form error:", {
-                message: errorMessage,
-                error: err,
-                status: err?.status,
-            });
+        } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : "Failed to send message";
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }
@@ -209,16 +173,10 @@ export default function ContactPage() {
                                             initial={{ opacity: 0, y: -10 }}
                                             animate={{ opacity: 1, y: 0 }}
                                             transition={{ duration: 0.3 }}
-                                            className="p-4 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700"
+                                            className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700"
                                         >
-                                            <p className="text-amber-900 dark:text-amber-100 text-sm font-medium mb-2">
-                                                ⚠️ Unable to Send Message
-                                            </p>
-                                            <p className="text-amber-800 dark:text-amber-200 text-sm mb-3">
-                                                {error}
-                                            </p>
-                                            <p className="text-amber-700 dark:text-amber-300 text-sm font-semibold">
-                                                📱 WhatsApp: <a href="https://wa.me/971522026061" target="_blank" rel="noopener noreferrer" className="underline hover:text-amber-900 dark:hover:text-amber-100">+971 52 202 6061</a>
+                                            <p className="text-red-900 dark:text-red-100 text-sm font-medium">
+                                                Error: {error}
                                             </p>
                                         </MotionDiv>
                                     )}
@@ -272,7 +230,9 @@ export default function ContactPage() {
                                                 <span className="animate-spin">⚙️</span> Sending...
                                             </span>
                                         ) : (
-                                            "Send Message"
+                                            <>
+                                                <Send className="mr-2 h-4 w-4" /> Send Message
+                                            </>
                                         )}
                                     </Button>
                                 </form>

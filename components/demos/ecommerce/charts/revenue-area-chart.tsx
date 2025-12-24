@@ -30,7 +30,12 @@ export function RevenueAreaChart() {
                             />
                             <Tooltip
                                 contentStyle={{ borderRadius: "8px", border: "none", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
-                                formatter={(value: number) => [`$${value.toLocaleString()}`, "Revenue"]}
+                                // formatter={(value: number) => [`$${value.toLocaleString()}`, "Revenue"]}
+                                formatter={(value?: number) => [
+  `$${(value ?? 0).toLocaleString()}`,
+  "Revenue",
+]}
+
                             />
                             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e5e5" />
                             <Area

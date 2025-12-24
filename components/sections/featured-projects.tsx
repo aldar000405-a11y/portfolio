@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Github, ExternalLink } from "lucide-react";
 import { MotionSection, MotionDiv } from "@/components/motion/motion";
@@ -46,6 +47,18 @@ export function FeaturedProjects() {
                             transition={{ duration: 0.5, delay: index * 0.1 }}
                         >
                             <Card className="flex flex-col h-full overflow-hidden transition-all hover:shadow-lg dark:hover:shadow-primary/5">
+                                {project.image && (
+                                    <div className="relative w-full h-48 overflow-hidden bg-muted">
+                                        <Image
+                                            src={project.image}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover transition-transform duration-300 hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                            priority={index === 0}
+                                        />
+                                    </div>
+                                )}
                                 <CardHeader>
                                     <CardTitle>{project.title}</CardTitle>
                                     <CardDescription className="line-clamp-2">
